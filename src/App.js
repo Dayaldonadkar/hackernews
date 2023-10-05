@@ -2,10 +2,10 @@ import React, { useContext } from "react";
 import Search from "./Search";
 import Pagination from "./Pagination";
 import Stories from "./Stories";
-import { AppContext } from "./context";
+import { useGLobalContext } from "./context";
 
 const App = () => {
-  const name = useContext(AppContext);
+  const name = useGLobalContext();
   console.log(name);
   return (
     <div>
