@@ -3,6 +3,7 @@ import Search from "./Search";
 import Pagination from "./Pagination";
 import Stories from "./Stories";
 import { useGLobalContext } from "./context";
+import Reducers from "./Reducers";
 
 const App = () => {
   const name = useGLobalContext();
@@ -13,6 +14,7 @@ const App = () => {
       <Search />
       <Pagination />
       <Stories />
+      <Reducers />
     </div>
   );
 };
