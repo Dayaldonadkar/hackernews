@@ -1,22 +1,17 @@
-import React, { useEffect } from "react";
+import React from "react";
+import { useGLobalContext } from "./context";
 
 const Stories = () => {
-  //   const API = "https://hn.algolia.com/api/v1/search?query";
-  //   const fetchApiData = async (url) => {
-  //     try {
-  //       const res = await fetch(url);
-  //       const data = await res.json();
-  //       console.log(data);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
+  const { hits } = useGLobalContext();
 
-  //   useEffect(() => {
-  //     fetchApiData(API);
-  //   }, []);
-
-  return <div>const</div>;
+  return (
+    <div>
+      <h1>dayal</h1>
+      {hits.map((currNews) => {
+        return <h2>{currNews.title}</h2>;
+      })}
+    </div>
+  );
 };
 
 export default Stories;

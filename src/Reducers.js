@@ -1,10 +1,19 @@
 import React, { useReducer } from "react";
 
 const Reducers = (state, action) => {
+  // eslint-disable-next-line default-case
+  switch (action.type) {
+    case "GET_STORIES":
+      return {
+        ...state,
+        hits: action.payload.hits,
+      };
+  }
   return state;
 };
 
 export default Reducers;
+
 // const initialstate = 0;
 
 // const reducer = (state, action) => {

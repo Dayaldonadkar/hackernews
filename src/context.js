@@ -3,14 +3,14 @@ import Reducers from "./Reducers";
 
 const AppContext = createContext();
 
-const API = "https://hn.algolia.com/api/v1/search?query";
+const API = "https://hn.algolia.com/api/v1/search?";
 
 const AppProvider = ({ children }) => {
   const initialState = {
     isLoading: true,
     query: "html",
     nbPages: 0,
-    pages: 0,
+    page: 0,
     hits: [],
   };
 
@@ -18,21 +18,27 @@ const AppProvider = ({ children }) => {
     try {
       const res = await fetch(url);
       const data = await res.json();
-      console.log("fetched", data);
+      console.log("fetched", data.hits);
+      dispatch({
+        type: "GET_STORIES",
+        payload: {
+          hits: data.hits,
+        },
+      });
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    fetchApiData(API);
+    fetchApiData(`${API}query=${state.query}&page=${state.page}`);
   }, []);
 
   const [state, dispatch] = useReducer(Reducers, initialState);
 
   return (
     <div>
-      <AppContext.Provider value={"da"}>{children}</AppContext.Provider>
+      <AppContext.Provider value={{ ...state }}>{children}</AppContext.Provider>
     </div>
   );
 };
