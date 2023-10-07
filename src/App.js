@@ -14,7 +14,7 @@ const App = () => {
       <Search />
       <Pagination />
       <Stories />
-      <Reducers />
+      {/* <Reducers /> */}
     </div>
   );
 };
