@@ -3,10 +3,24 @@ import React, { useReducer } from "react";
 const Reducers = (state, action) => {
   // eslint-disable-next-line default-case
   switch (action.type) {
+    case "SET_loading":
+      return {
+        ...state,
+        isLoading: true,
+      };
     case "GET_STORIES":
       return {
         ...state,
+        isLoading: false,
         hits: action.payload.hits,
+      };
+
+    case "REMOVE_POST":
+      return {
+        ...state,
+        hits: state.hits.filter(
+          (curElem) => curElem.objectID !== action.payload
+        ),
       };
   }
   return state;

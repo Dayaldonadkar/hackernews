@@ -15,6 +15,7 @@ const AppProvider = ({ children }) => {
   };
 
   const fetchApiData = async (url) => {
+    dispatch({ type: "SET_loading" });
     try {
       const res = await fetch(url);
       const data = await res.json();
@@ -30,15 +31,22 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  const removePost = (post_ID) => {
+    dispatch({ type: "REMOVE_POST", payload: post_ID });
+    console.log("remove", post_ID);
+  };
+
   useEffect(() => {
-    fetchApiData(`${API}query=${state.query}&page=${state.page}`);
+    fetchApiData(`${API}query=${state.query}`);
   }, []);
 
   const [state, dispatch] = useReducer(Reducers, initialState);
 
   return (
     <div>
-      <AppContext.Provider value={{ ...state }}>{children}</AppContext.Provider>
+      <AppContext.Provider value={{ ...state, removePost }}>
+        {children}
+      </AppContext.Provider>
     </div>
   );
 };
