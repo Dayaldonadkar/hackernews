@@ -2,17 +2,19 @@ import React, { createContext, useContext, useEffect, useReducer } from "react";
 import Reducers from "./Reducers";
 
 const AppContext = createContext();
-
+let searchQuery = "";
 const API = "https://hn.algolia.com/api/v1/search?";
 
 const AppProvider = ({ children }) => {
   const initialState = {
     isLoading: true,
-    query: "",
+    query: "CSS",
     nbPages: 0,
     page: 0,
     hits: [],
   };
+
+  const [state, dispatch] = useReducer(Reducers, initialState);
 
   const fetchApiData = async (url) => {
     dispatch({ type: "SET_loading" });
@@ -41,13 +43,12 @@ const AppProvider = ({ children }) => {
       type: "SEARCH_QUERY",
       payload: searchQuery,
     });
+    console.log();
   };
 
   useEffect(() => {
-    fetchApiData(`${API}query=${state.query}`);
+    fetchApiData(`${API}query=${state.query}&page=${state.page}`);
   }, [state.query]);
-
-  const [state, dispatch] = useReducer(Reducers, initialState);
 
   return (
     <div>

@@ -5,7 +5,7 @@ const Search = () => {
   const { query, SearchPost } = useGLobalContext();
   return (
     <div>
-      <form onSubmit={(e) => e.preventDefault}>
+      <form onSubmit={(e) => e.preventDefault()}>
         <div>
           <input
             type="text"
