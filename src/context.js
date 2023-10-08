@@ -8,7 +8,7 @@ const API = "https://hn.algolia.com/api/v1/search?";
 const AppProvider = ({ children }) => {
   const initialState = {
     isLoading: true,
-    query: "html",
+    query: "",
     nbPages: 0,
     page: 0,
     hits: [],
@@ -36,15 +36,22 @@ const AppProvider = ({ children }) => {
     console.log("remove", post_ID);
   };
 
+  const SearchPost = (searchQuery) => {
+    dispatch({
+      type: "SEARCH_QUERY",
+      payload: searchQuery,
+    });
+  };
+
   useEffect(() => {
     fetchApiData(`${API}query=${state.query}`);
-  }, []);
+  }, [state.query]);
 
   const [state, dispatch] = useReducer(Reducers, initialState);
 
   return (
     <div>
-      <AppContext.Provider value={{ ...state, removePost }}>
+      <AppContext.Provider value={{ ...state, removePost, SearchPost }}>
         {children}
       </AppContext.Provider>
     </div>

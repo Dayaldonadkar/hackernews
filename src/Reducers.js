@@ -22,6 +22,11 @@ const Reducers = (state, action) => {
           (curElem) => curElem.objectID !== action.payload
         ),
       };
+    case "SEARCH_QUERY":
+      return {
+        ...state,
+        query: action.payload,
+      };
   }
   return state;
 };
